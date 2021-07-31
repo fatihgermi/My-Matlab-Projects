@@ -57,6 +57,5 @@ xlabel('Answers');
 ylabel('Times');
 hold on
 hold off
-%şıkların bulunması gereken sayı, en çok çıkan, en az çıkan, aradaki oran,
-%sapma oranı eklenebilir
+
 disp('End Of The Program')
