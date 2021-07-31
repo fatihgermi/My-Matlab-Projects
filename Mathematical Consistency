@@ -1,0 +1,62 @@
+clc, clear all;
+
+
+Counter = 0;
+NumberOfCorrectAnswer = 0;
+NumberOfWrongAnswer = 0;
+FirstList = [];
+
+NumberOfOptions = input('How many options to ask = ');
+TryingNumber = input('How many times to try = ');
+Guess = 6;
+while Guess > 0
+    CorrectAnswer = randi(NumberOfOptions);
+    Guess = randi(NumberOfOptions);
+    
+    if CorrectAnswer == Guess
+        NumberOfCorrectAnswer = NumberOfCorrectAnswer + 1;
+    else
+        NumberOfWrongAnswer = NumberOfWrongAnswer + 1;
+    end
+    subplot(2,1,1)
+    Counter = Counter + 1
+    hold on
+    grid on
+    Ratio = (NumberOfCorrectAnswer/(NumberOfCorrectAnswer + NumberOfWrongAnswer));
+    FirstGraph = plot(Counter,Ratio,'LineStyle','-','Marker','o');
+    axis([0 TryingNumber 0 1])
+    
+    FirstList = [FirstList CorrectAnswer] ;
+    if Counter == TryingNumber;
+        break
+    end
+    clc
+end
+    title('Statistics Meter');
+    xlabel('Number Of Guesses');
+    ylabel('Correct Answer Rate');
+TheRateWeGet = (1/NumberOfOptions);
+SuccesRate = ((TheRateWeGet - Ratio)/TheRateWeGet);
+if SuccesRate < 0
+    SuccesRate = SuccesRate * -1;
+end
+
+histo_x = NumberOfOptions + 1;
+histo_y = (Counter/NumberOfOptions)*1.3;
+fprintf('%d options we have\nSo, randomly guesses should be true around %0.3f ratio\nThe ratio that program got : %0.3f\n',NumberOfOptions,TheRateWeGet,Ratio)
+
+fprintf('Succes Rate is %0.3f\n',(1 - SuccesRate));
+
+subplot(2,1,2)
+histogram_graph = histogram(FirstList);
+histogram_graph.FaceColor = [.3 .4 .7];
+histogram_graph.EdgeColor = [.7 .6 .5];
+axis([0 histo_x 0 histo_y])
+title('All Of The Answers')
+xlabel('Answers');
+ylabel('Times');
+hold on
+hold off
+%şıkların bulunması gereken sayı, en çok çıkan, en az çıkan, aradaki oran,
+%sapma oranı eklenebilir
+disp('End Of The Program')
